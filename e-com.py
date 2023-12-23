@@ -1,3 +1,8 @@
+from codecarbon import OfflineEmissionsTracker
+tracker = OfflineEmissionsTracker(country_iso_code="IND")
+
+
+
 class Product:
     def __init__(self, id:int, name:str, price: int) -> None:
         self.id = id
@@ -24,7 +29,11 @@ class ShoppingCart:
             print("Product not in cart")
         
     def CalculateTotal(self):
-        return sum([int(i.price) for i in self.cart])
+        tracker.start()
+        s =  sum([int(i.price) for i in self.cart])
+        tracker.stop()
+        return s
+        
     def Displaycart(self):
         if not self.cart:
             print("The cart is Empty!")
@@ -78,6 +87,7 @@ if __name__ == "__main__":
                 exit()
             else:
                 print("Invalid Input")
+    
 
 
             
